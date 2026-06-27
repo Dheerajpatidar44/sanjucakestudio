@@ -1,13 +1,11 @@
 <!DOCTYPE html>
 <html lang="en" class="h-full">
-
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Sanju's Cake Studio | Order Chalu Hogye!</title>
-  <meta name="description"
-    content="Premium Home Bakery. Freshly baked cakes made with love by Sanju's Cake Studio. DM to order now!">
-
+  <meta name="description" content="Premium Home Bakery. Freshly baked cakes made with love by Sanju's Cake Studio. DM to order now!">
+  
   <!-- Tailwind CSS -->
   <script src="https://cdn.tailwindcss.com"></script>
   <script>
@@ -36,11 +34,9 @@
   <!-- Google Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link
-    href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Satisfy&display=swap"
-    rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Satisfy&display=swap" rel="stylesheet">
 
-  <!-- Lucide Icons (Fallback loader) -->
+  <!-- Lucide Icons -->
   <script src="https://unpkg.com/lucide@latest"></script>
 
   <style>
@@ -52,34 +48,26 @@
 
     /* Soft floating animation for cake */
     @keyframes floatCake {
-
-      0%,
-      100% {
+      0%, 100% {
         transform: translateY(0) scale(1);
       }
-
       50% {
         transform: translateY(-8px) scale(1.02);
       }
     }
-
     .animate-float-cake {
       animation: floatCake 6s ease-in-out infinite;
     }
 
     /* Subtle swaying for corner flowers */
     @keyframes swayBranch {
-
-      0%,
-      100% {
+      0%, 100% {
         transform: rotate(0deg);
       }
-
       50% {
         transform: rotate(2deg);
       }
     }
-
     .animate-sway-branch {
       animation: swayBranch 8s ease-in-out infinite;
     }
@@ -90,13 +78,11 @@
         opacity: 0;
         transform: translateY(24px);
       }
-
       to {
         opacity: 1;
         transform: translateY(0);
       }
     }
-
     .animate-fade-in-up {
       animation: fadeInUp 1.2s cubic-bezier(0.16, 1, 0.3, 1) forwards;
     }
@@ -106,17 +92,14 @@
       0% {
         transform: translateY(-5vh) rotate(0deg);
       }
-
       100% {
         transform: translateY(105vh) rotate(360deg);
       }
     }
-
     @keyframes drift {
       0% {
         transform: translateX(-15px);
       }
-
       100% {
         transform: translateX(15px);
       }
@@ -130,171 +113,138 @@
     }
 
     /* Button glow effects */
-    .glow-hover:hover {
-      box-shadow: 0 0 20px rgba(224, 90, 107, 0.25);
+    .glow-hover-insta:hover {
+      box-shadow: 0 0 20px rgba(225, 48, 108, 0.3);
+    }
+
+    /* Modal backdrop */
+    #enquiry-modal {
+      backdrop-filter: blur(6px);
+      -webkit-backdrop-filter: blur(6px);
+      transition: opacity 0.25s ease;
+    }
+    #enquiry-modal.hidden {
+      pointer-events: none;
+    }
+
+    /* Modal card slide-up */
+    @keyframes slideUp {
+      from { transform: translateY(40px); opacity: 0; }
+      to   { transform: translateY(0);    opacity: 1; }
+    }
+    .modal-card {
+      animation: slideUp 0.3s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+    }
+
+    /* Message box pre text */
+    #modal-message-text {
+      white-space: pre-wrap;
+      word-break: break-word;
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      font-size: 13px;
+      line-height: 1.6;
+      color: #5a3a2a;
+    }
+
+    /* Shimmer copy feedback */
+    @keyframes shimmerCopy {
+      0%   { background-position: -200% center; }
+      100% { background-position:  200% center; }
+    }
+    .btn-copied {
+      background: linear-gradient(90deg, #e05a6b, #c13584, #f77737, #e05a6b);
+      background-size: 200% auto;
+      animation: shimmerCopy 1.2s linear infinite;
+    }
+    
+    /* Custom scroll behavior */
+    html {
+      scroll-behavior: smooth;
     }
   </style>
 </head>
+<body class="bg-gradient-to-br from-[#FFF5F6] via-[#FFFDFD] to-[#FCE7E9] min-h-screen py-8 px-4 relative overflow-x-hidden">
 
-<body
-  class="bg-gradient-to-br from-[#FFF5F6] via-[#FFFDFD] to-[#FCE7E9] min-h-screen py-8 px-4 flex items-center justify-center relative overflow-x-hidden">
+  <!-- Enquiry Modal Overlay -->
+  <div id="enquiry-modal" class="hidden fixed inset-0 z-50 flex items-end sm:items-center justify-center bg-black/40 px-4 pb-4 sm:pb-0">
+    <div class="modal-card w-full max-w-sm bg-white rounded-3xl shadow-2xl overflow-hidden">
+      
+      <!-- Modal Header -->
+      <div class="bg-gradient-to-r from-[#E1306C] via-[#C13584] to-[#F77737] px-5 pt-5 pb-4">
+        <div class="flex items-center justify-between">
+          <div class="flex items-center gap-2.5">
+            <svg class="w-5 h-5 text-white flex-shrink-0" viewBox="0 0 24 24" fill="none">
+              <rect x="2" y="2" width="20" height="20" rx="5" ry="5" stroke="currentColor" stroke-width="2.2"/>
+              <circle cx="12" cy="12" r="4" stroke="currentColor" stroke-width="2.2"/>
+              <circle cx="18" cy="6" r="1.5" fill="currentColor"/>
+            </svg>
+            <span class="text-white font-extrabold text-sm tracking-wide">Your Enquiry Message</span>
+          </div>
+          <button onclick="closeModal()" class="text-white/80 hover:text-white text-xl leading-none font-bold transition-colors">✕</button>
+        </div>
+        <p class="text-white/80 text-[11px] mt-1.5 font-medium">Copy this message and paste it in Instagram DM 👇</p>
+      </div>
+
+      <!-- Message Preview Box -->
+      <div class="px-5 pt-4 pb-3">
+        <div class="bg-[#FFF5F6] border border-[#F8D6DB] rounded-2xl px-4 py-3 relative">
+          <pre id="modal-message-text" class="text-[13px] text-goldbrown leading-relaxed"></pre>
+        </div>
+      </div>
+
+      <!-- Action Buttons -->
+      <div class="px-5 pb-5 flex flex-col gap-2.5">
+        <!-- Copy Button -->
+        <button id="modal-copy-btn" onclick="modalCopyAndOpen()" class="w-full flex items-center justify-center gap-2.5 bg-gradient-to-r from-[#E1306C] via-[#C13584] to-[#F77737] text-white font-extrabold text-sm py-3.5 rounded-2xl shadow-lg transition-all duration-300 active:scale-[0.98]">
+          <svg class="w-5 h-5 flex-shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+            <rect x="9" y="9" width="13" height="13" rx="2" ry="2"/>
+            <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/>
+          </svg>
+          <span id="modal-copy-label">Copy &amp; Open Instagram</span>
+        </button>
+        <!-- Cancel -->
+        <button onclick="closeModal()" class="w-full text-goldbrown/70 font-semibold text-xs py-2 hover:text-rosepink transition-colors">Cancel</button>
+      </div>
+
+      <!-- Paste Reminder -->
+      <div class="bg-[#FFF5F6] border-t border-[#F8D6DB] px-5 py-3 flex items-start gap-2">
+        <span class="text-base mt-0.5">💡</span>
+        <p class="text-[11px] text-goldbrown/80 font-medium leading-relaxed">
+          After Instagram opens, tap the <strong>message box</strong> and <strong>paste</strong> (long press → Paste) to send your order.
+        </p>
+      </div>
+    </div>
+  </div>
 
   <!-- Interactive Background Canvas (Falling Petals, Sparkles, Hearts) -->
   <div id="petal-container" class="absolute inset-0 pointer-events-none overflow-hidden z-0"></div>
 
-  <!-- Main Container Card -->
-  <main
-    class="w-full max-w-[560px] bg-white/85 backdrop-blur-md rounded-[2.5rem] shadow-[0_24px_70px_rgba(224,90,107,0.12)] border border-white/90 p-6 md:p-10 relative overflow-hidden flex flex-col items-center z-10 animate-fade-in-up">
+  <!-- Main Container Wrapper -->
+  <div class="w-full max-w-2xl mx-auto flex flex-col items-center z-10 animate-fade-in-up relative">
 
-    <!-- Decorative Corner Branches -->
-    <!-- Top Left -->
-    <div
-      class="absolute -top-4 -left-4 w-36 h-36 md:w-44 md:h-44 pointer-events-none select-none z-0 opacity-80 animate-sway-branch origin-top-left">
-      <svg class="w-full h-full" viewBox="0 0 120 120" fill="none" xmlns="http://www.w3.org/2000/svg">
-        <path d="M0,0 Q30,15 45,35 Q60,55 55,75" stroke="#8B5A3C" stroke-width="2" stroke-linecap="round" fill="none" />
-        <path d="M20,10 Q35,20 30,35" stroke="#8B5A3C" stroke-width="1.5" stroke-linecap="round" fill="none" />
-        <path d="M40,30 Q55,35 60,25" stroke="#8B5A3C" stroke-width="1.2" stroke-linecap="round" fill="none" />
-        <!-- Leaves -->
-        <path d="M15,5 C10,12 25,18 20,8 C18,3 16,3 15,5 Z" fill="#9FB388" opacity="0.85" />
-        <path d="M35,22 C32,28 42,32 40,24 C38,20 36,20 35,22 Z" fill="#9FB388" opacity="0.85" />
-        <path d="M50,45 C46,52 56,58 54,48 C52,42 51,42 50,45 Z" fill="#9FB388" opacity="0.85" />
-        <!-- Flower 1 -->
-        <g transform="translate(45,35)">
-          <path d="M0,0 C-10,-12 -22,-6 -15,5 C-12,12 -5,12 0,0" fill="url(#blossomPink)" />
-          <path d="M0,0 C12,-10 22,-6 15,5 C12,12 5,12 0,0" fill="url(#blossomPink)" />
-          <path d="M0,0 C-12,10 -6,22 5,15 C12,12 12,5 0,0" fill="url(#blossomPink)" />
-          <path d="M0,0 C12,10 6,22 -5,15 C-12,12 -12,5 0,0" fill="url(#blossomPink)" />
-          <path d="M0,0 C-10,-12 10,-12 0,0" fill="url(#blossomPink)" />
-          <circle cx="0" cy="0" r="2" fill="#E5C384" />
-        </g>
-        <!-- Flower 2 -->
-        <g transform="translate(25,15) scale(0.75)">
-          <path d="M0,0 C-10,-12 -22,-6 -15,5 C-12,12 -5,12 0,0" fill="url(#blossomPink)" />
-          <path d="M0,0 C12,-10 22,-6 15,5 C12,12 5,12 0,0" fill="url(#blossomPink)" />
-          <path d="M0,0 C-12,10 -6,22 5,15 C12,12 12,5 0,0" fill="url(#blossomPink)" />
-          <path d="M0,0 C12,10 6,22 -5,15 C-12,12 -12,5 0,0" fill="url(#blossomPink)" />
-          <path d="M0,0 C-10,-12 10,-12 0,0" fill="url(#blossomPink)" />
-          <circle cx="0" cy="0" r="2" fill="#E5C384" />
-        </g>
-        <!-- Flower 3 -->
-        <g transform="translate(58,25) scale(0.6)">
-          <path d="M0,0 C-10,-12 -22,-6 -15,5 C-12,12 -5,12 0,0" fill="url(#blossomPink)" />
-          <path d="M0,0 C12,-10 22,-6 15,5 C12,12 5,12 0,0" fill="url(#blossomPink)" />
-          <path d="M0,0 C-12,10 -6,22 5,15 C12,12 12,5 0,0" fill="url(#blossomPink)" />
-          <path d="M0,0 C12,10 6,22 -5,15 C-12,12 -12,5 0,0" fill="url(#blossomPink)" />
-          <path d="M0,0 C-10,-12 10,-12 0,0" fill="url(#blossomPink)" />
-          <circle cx="0" cy="0" r="2" fill="#E5C384" />
-        </g>
-        <circle cx="32" cy="38" r="3.5" fill="url(#budPink)" />
-        <circle cx="52" cy="62" r="3" fill="url(#budPink)" />
-        <circle cx="10" cy="12" r="3" fill="url(#budPink)" />
-        <defs>
-          <radialGradient id="blossomPink" cx="0" cy="0" r="20" gradientUnits="userSpaceOnUse">
-            <stop offset="0%" stop-color="#FFF5F6" />
-            <stop offset="60%" stop-color="#F9C2CD" />
-            <stop offset="100%" stop-color="#E05A6B" />
-          </radialGradient>
-          <radialGradient id="budPink" cx="50%" cy="50%" r="50%">
-            <stop offset="0%" stop-color="#F9C2CD" />
-            <stop offset="100%" stop-color="#E05A6B" />
-          </radialGradient>
-        </defs>
-      </svg>
-    </div>
 
-    <!-- Top Right -->
-    <div
-      class="absolute -top-4 -right-4 w-36 h-36 md:w-44 md:h-44 pointer-events-none select-none z-0 opacity-80 animate-sway-branch origin-top-right transform -scale-x-100">
-      <svg class="w-full h-full" viewBox="0 0 120 120" fill="none" xmlns="http://www.w3.org/2000/svg">
-        <path d="M0,0 Q30,15 45,35 Q60,55 55,75" stroke="#8B5A3C" stroke-width="2" stroke-linecap="round" fill="none" />
-        <path d="M20,10 Q35,20 30,35" stroke="#8B5A3C" stroke-width="1.5" stroke-linecap="round" fill="none" />
-        <path d="M40,30 Q55,35 60,25" stroke="#8B5A3C" stroke-width="1.2" stroke-linecap="round" fill="none" />
-        <!-- Leaves -->
-        <path d="M15,5 C10,12 25,18 20,8 C18,3 16,3 15,5 Z" fill="#9FB388" opacity="0.85" />
-        <path d="M35,22 C32,28 42,32 40,24 C38,20 36,20 35,22 Z" fill="#9FB388" opacity="0.85" />
-        <!-- Flowers -->
-        <g transform="translate(45,35)">
-          <path d="M0,0 C-10,-12 -22,-6 -15,5 C-12,12 -5,12 0,0" fill="url(#blossomPink-tr)" />
-          <path d="M0,0 C12,-10 22,-6 15,5 C12,12 5,12 0,0" fill="url(#blossomPink-tr)" />
-          <path d="M0,0 C-12,10 -6,22 5,15 C12,12 12,5 0,0" fill="url(#blossomPink-tr)" />
-          <path d="M0,0 C12,10 6,22 -5,15 C-12,12 -12,5 0,0" fill="url(#blossomPink-tr)" />
-          <path d="M0,0 C-10,-12 10,-12 0,0" fill="url(#blossomPink-tr)" />
-          <circle cx="0" cy="0" r="2" fill="#E5C384" />
-        </g>
-        <g transform="translate(25,15) scale(0.75)">
-          <path d="M0,0 C-10,-12 -22,-6 -15,5 C-12,12 -5,12 0,0" fill="url(#blossomPink-tr)" />
-          <path d="M0,0 C12,-10 22,-6 15,5 C12,12 5,12 0,0" fill="url(#blossomPink-tr)" />
-          <path d="M0,0 C-12,10 -6,22 5,15 C12,12 12,5 0,0" fill="url(#blossomPink-tr)" />
-          <circle cx="0" cy="0" r="2" fill="#E5C384" />
-        </g>
-        <circle cx="32" cy="38" r="3.5" fill="url(#budPink-tr)" />
-        <defs>
-          <radialGradient id="blossomPink-tr" cx="0" cy="0" r="20" gradientUnits="userSpaceOnUse">
-            <stop offset="0%" stop-color="#FFF5F6" />
-            <stop offset="60%" stop-color="#F9C2CD" />
-            <stop offset="100%" stop-color="#E05A6B" />
-          </radialGradient>
-          <radialGradient id="budPink-tr" cx="50%" cy="50%" r="50%">
-            <stop offset="0%" stop-color="#F9C2CD" />
-            <stop offset="100%" stop-color="#E05A6B" />
-          </radialGradient>
-        </defs>
-      </svg>
-    </div>
+    <!-- Floating Instagram CTA Button (top right) -->
+    <a href="https://ig.me/m/sanjucakestudio" target="_blank" rel="noopener noreferrer"
+       class="absolute top-3 right-3 z-20 select-none group" title="Message on Instagram">
+      <!-- Pulsing glow ring -->
+      <span class="absolute inset-0 rounded-full bg-gradient-to-tr from-[#F77737] via-[#C13584] to-[#E1306C] opacity-30 blur-md scale-110 group-hover:opacity-60 group-hover:scale-125 transition-all duration-500"></span>
+      <!-- Icon button -->
+      <span class="relative flex items-center justify-center w-10 h-10 rounded-full bg-gradient-to-tr from-[#F77737] via-[#C13584] to-[#E1306C] shadow-lg group-hover:scale-110 group-hover:shadow-[0_0_18px_rgba(193,53,132,0.5)] active:scale-95 transition-all duration-300">
+        <svg class="w-5 h-5 text-white" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <rect x="2" y="2" width="20" height="20" rx="5" ry="5" stroke="currentColor" stroke-width="2.2"/>
+          <circle cx="12" cy="12" r="4" stroke="currentColor" stroke-width="2.2"/>
+          <circle cx="18" cy="6" r="1.5" fill="currentColor"/>
+        </svg>
+      </span>
+    </a>
 
     <!-- LOGO SECTION -->
-    <header class="flex flex-col items-center text-center relative z-10 w-full">
-      <!-- 3-Tiered Cake SVG Logo -->
-      <div class="relative group cursor-pointer">
-        <div
-          class="absolute inset-0 bg-rosepink/5 rounded-full blur-xl group-hover:scale-110 transition-transform duration-500">
-        </div>
-        <svg class="w-16 h-16 text-rosepink relative" viewBox="0 0 100 100" fill="none"
-          xmlns="http://www.w3.org/2000/svg">
-          <!-- Stand -->
-          <path d="M20,86 L80,86" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" />
-          <path d="M38,86 L44,93 L56,93 L62,86" stroke="currentColor" stroke-width="2" stroke-linejoin="round"
-            fill="none" />
-          <!-- Tier 3 (Bottom) -->
-          <rect x="25" y="65" width="50" height="17" rx="3.5" stroke="currentColor" stroke-width="2" fill="#FFF" />
-          <path d="M25,71 Q35,74 45,71 Q55,74 65,71 Q75,74 75,71" stroke="currentColor" stroke-width="1.8"
-            fill="none" />
-          <!-- Tier 2 (Middle) -->
-          <rect x="33" y="48" width="34" height="14" rx="3" stroke="currentColor" stroke-width="2" fill="#FFF" />
-          <path d="M33,53 Q41.5,56 50,53 Q58.5,56 67,53" stroke="currentColor" stroke-width="1.8" fill="none" />
-          <!-- Tier 1 (Top) -->
-          <rect x="41" y="34" width="18" height="11" rx="2" stroke="currentColor" stroke-width="2" fill="#FFF" />
-          <path d="M41,38 Q45.5,40.5 50,38 Q54.5,40.5 59,38" stroke="currentColor" stroke-width="1.5" fill="none" />
-          <!-- Topper heart -->
-          <path
-            d="M50,18 C50,18 47.5,14 45,14 C42.5,14 41,16 41,18.5 C41,21.5 50,25.5 50,25.5 C50,25.5 59,21.5 59,18.5 C59,16 57.5,14 55,14 C52.5,14 50,18 50,18 Z"
-            fill="currentColor" />
-          <line x1="50" y1="25" x2="50" y2="34" stroke="currentColor" stroke-width="2" stroke-linecap="round" />
-        </svg>
-      </div>
-
-      <!-- Sanju's -->
-      <h2
-        class="font-logoScript text-[3.8rem] md:text-[4.2rem] text-rosepink leading-[0.8] mt-1 filter drop-shadow-sm select-none">
-        Sanju's
-      </h2>
-      <!-- CAKE STUDIO -->
-      <h3 class="font-serifHeading text-xs md:text-sm tracking-[0.28em] text-goldbrown font-bold uppercase mt-2">
-        Cake Studio
-      </h3>
-      <!-- MADE WITH LOVE Tagline -->
-      <div class="flex items-center space-x-2 mt-2">
-        <span
-          class="text-[8px] md:text-[10px] text-rosepink font-extrabold tracking-widest uppercase flex items-center gap-1.5">
-          • Made With Love •
-        </span>
-      </div>
-
-      <!-- Hanging Small Heart ornament -->
-      <div class="mt-2 text-rosepink/90 animate-bounce select-none">♥</div>
+    <header class="flex flex-col items-center text-center relative z-10 w-full mt-4">
+      <img src="logo.png" alt="Sanju's Cake Studio Logo"
+           class="w-48 sm:w-56 md:w-64 h-auto object-contain drop-shadow-md select-none" />
     </header>
 
-    <!-- HERO SECTION -->
+    <!-- HERO SECTION (Sits directly on main background) -->
     <section class="flex flex-col items-center w-full mt-3 relative z-10 text-center">
       <!-- Main Title -->
       <h1 class="font-headingScript text-4xl md:text-[2.75rem] text-rosepink mt-1 mb-3 leading-tight select-none">
@@ -302,8 +252,7 @@
       </h1>
 
       <!-- Subtext Badge -->
-      <div
-        class="inline-flex items-center space-x-1.5 bg-blush/90 border border-lightpink/50 rounded-full px-4 py-1.5 shadow-sm transition-transform duration-300 hover:scale-105 select-none mb-6">
+      <div class="inline-flex items-center space-x-1.5 bg-blush/90 border border-lightpink/50 rounded-full px-4 py-1.5 shadow-sm transition-transform duration-300 hover:scale-105 select-none mb-6">
         <span class="text-rosepink text-[10px] md:text-xs font-bold tracking-widest uppercase flex items-center gap-1">
           ♥ FRESHLY BAKED WITH LOVE ♥
         </span>
@@ -312,92 +261,60 @@
       <!-- Centered Premium Cake Image Box -->
       <div class="relative w-64 h-64 sm:w-72 sm:h-72 md:w-80 md:h-80 mx-auto group">
         <!-- Floating & Glow rings background -->
-        <div
-          class="absolute -inset-4 bg-gradient-to-tr from-rosepink/10 to-goldbrown/5 rounded-full blur-2xl group-hover:scale-105 transition-transform duration-700 ease-out animate-pulse">
-        </div>
-        <div
-          class="absolute -inset-1.5 bg-gradient-to-br from-rosepink/5 via-white/40 to-goldbrown/5 rounded-[2.5rem] border border-lightpink/30 shadow-inner">
-        </div>
-
+        <div class="absolute -inset-4 bg-gradient-to-tr from-rosepink/10 to-goldbrown/5 rounded-full blur-2xl group-hover:scale-105 transition-transform duration-700 ease-out animate-pulse"></div>
+        <div class="absolute -inset-1.5 bg-gradient-to-br from-rosepink/5 via-white/40 to-goldbrown/5 rounded-[2.5rem] border border-lightpink/30 shadow-inner"></div>
+        
         <!-- Frame around Cake -->
-        <div
-          class="w-full h-full rounded-[2.2rem] overflow-hidden shadow-[0_20px_50px_rgba(224,90,107,0.18)] border-[5px] border-white relative z-10 animate-float-cake bg-gradient-to-b from-white to-blush/30">
-          <img src="cake.png" alt="Sanju's Signature Pink Dripping Rose Cake"
-            class="w-full h-full object-cover transform scale-100 group-hover:scale-105 transition-all duration-700 ease-out select-none" />
+        <div class="w-full h-full rounded-[2.2rem] overflow-hidden shadow-[0_20px_50px_rgba(224,90,107,0.18)] border-[5px] border-white relative z-10 animate-float-cake bg-gradient-to-b from-white to-blush/30">
+          <img src="cake.png" alt="Sanju's Signature Pink Dripping Rose Cake" class="w-full h-full object-cover transform scale-100 group-hover:scale-105 transition-all duration-700 ease-out select-none" />
         </div>
       </div>
     </section>
 
-    <!-- FEATURE HIGHLIGHTS CARDS -->
+    <!-- FEATURE HIGHLIGHTS CARDS (Floating Card) -->
     <section class="w-full mt-8 relative z-10">
-      <!-- 4 Equal Column Grid Pill Container -->
-      <div
-        class="bg-white/95 border border-[#F8D6DB]/60 rounded-3xl p-3 md:p-4 shadow-[0_15px_40px_rgba(224,90,107,0.06)] grid grid-cols-2 sm:grid-cols-4 gap-2 text-center items-stretch divide-y-0 select-none">
-
+      <div class="bg-white/90 border border-[#F8D6DB]/60 rounded-3xl p-3 md:p-4 shadow-[0_15px_40px_rgba(224,90,107,0.06)] grid grid-cols-2 sm:grid-cols-4 gap-2 text-center items-stretch divide-y-0 select-none">
+        
         <!-- Card 1: Homemade with Love -->
-        <div
-          class="flex flex-col items-center justify-center p-3 rounded-2xl border-r border-b sm:border-b-0 border-[#F8D6DB]/30 hover:bg-blush/25 transition-all duration-300 group">
-          <!-- Mixing Bowl Custom SVG Icon -->
-          <svg
-            class="w-7 h-7 text-rosepink mb-2 transform group-hover:scale-110 group-hover:rotate-6 transition-transform duration-300"
-            viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"
-            stroke-linejoin="round">
-            <path d="M4 11c0 4.4 3.6 8 8 8s8-3.6 8-8H4z" fill="#FFF0F2" />
-            <path d="M3 11h18" />
-            <path d="M12 11V3l4 4" />
-            <circle cx="16" cy="7" r="0.75" fill="currentColor" />
+        <div class="flex flex-col items-center justify-center p-3 rounded-2xl border-r border-b sm:border-b-0 border-[#F8D6DB]/30 hover:bg-blush/25 transition-all duration-300 group">
+          <svg class="w-7 h-7 text-rosepink mb-2 transform group-hover:scale-110 group-hover:rotate-6 transition-transform duration-300" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M4 11c0 4.4 3.6 8 8 8s8-3.6 8-8H4z" fill="#FFF0F2"/>
+            <path d="M3 11h18"/>
+            <path d="M12 11V3l4 4"/>
+            <circle cx="16" cy="7" r="0.75" fill="currentColor"/>
           </svg>
           <h4 class="text-[9px] md:text-[10px] font-extrabold text-goldbrown tracking-wider uppercase">HOMEMADE</h4>
           <p class="text-[9px] md:text-[10px] text-rosepink font-medium mt-0.5">with Love</p>
         </div>
 
         <!-- Card 2: Fresh Ingredients -->
-        <div
-          class="flex flex-col items-center justify-center p-3 rounded-2xl border-b sm:border-b-0 sm:border-r border-[#F8D6DB]/30 hover:bg-blush/25 transition-all duration-300 group">
-          <!-- Leaf Custom SVG Icon -->
-          <svg
-            class="w-7 h-7 text-rosepink mb-2 transform group-hover:scale-110 group-hover:-rotate-6 transition-transform duration-300"
-            viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"
-            stroke-linejoin="round">
-            <path d="M11 20A7 7 0 0 1 9.8 6.1C15.5 5 17 4.48 19 2c1 2 2 3.5 0 9.2a7 7 0 0 1-8 8.8z" fill="#FFF0F2" />
-            <path d="M19 2c-2.26 4.33-5.27 7.14-8 8" />
+        <div class="flex flex-col items-center justify-center p-3 rounded-2xl border-b sm:border-b-0 sm:border-r border-[#F8D6DB]/30 hover:bg-blush/25 transition-all duration-300 group">
+          <svg class="w-7 h-7 text-rosepink mb-2 transform group-hover:scale-110 group-hover:-rotate-6 transition-transform duration-300" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M11 20A7 7 0 0 1 9.8 6.1C15.5 5 17 4.48 19 2c1 2 2 3.5 0 9.2a7 7 0 0 1-8 8.8z" fill="#FFF0F2"/>
+            <path d="M19 2c-2.26 4.33-5.27 7.14-8 8"/>
           </svg>
           <h4 class="text-[9px] md:text-[10px] font-extrabold text-goldbrown tracking-wider uppercase">FRESH</h4>
           <p class="text-[9px] md:text-[10px] text-rosepink font-medium mt-0.5">Ingredients</p>
         </div>
 
         <!-- Card 3: Pre-Order Only -->
-        <div
-          class="flex flex-col items-center justify-center p-3 rounded-2xl border-r border-[#F8D6DB]/30 hover:bg-blush/25 transition-all duration-300 group">
-          <!-- Calendar with Heart Custom SVG Icon -->
-          <svg
-            class="w-7 h-7 text-rosepink mb-2 transform group-hover:scale-110 group-hover:scale-105 transition-transform duration-300"
-            viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"
-            stroke-linejoin="round">
-            <rect x="3" y="4" width="18" height="18" rx="2" ry="2" fill="#FFF0F2" />
-            <line x1="16" y1="2" x2="16" y2="6" />
-            <line x1="8" y1="2" x2="8" y2="6" />
-            <line x1="3" y1="10" x2="21" y2="10" />
-            <path
-              d="M12 14.5c0 0-0.8-.8-1.5-.8-.8 0-1.2.6-1.2 1.1 0 .9 2.7 2.2 2.7 2.2s2.7-1.3 2.7-2.2c0-.5-.4-1.1-1.2-1.1-.7 0-1.5.8-1.5.8z"
-              fill="currentColor" />
+        <div class="flex flex-col items-center justify-center p-3 rounded-2xl border-r border-[#F8D6DB]/30 hover:bg-blush/25 transition-all duration-300 group">
+          <svg class="w-7 h-7 text-rosepink mb-2 transform group-hover:scale-110 group-hover:scale-105 transition-transform duration-300" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+            <rect x="3" y="4" width="18" height="18" rx="2" ry="2" fill="#FFF0F2"/>
+            <line x1="16" y1="2" x2="16" y2="6"/>
+            <line x1="8" y1="2" x2="8" y2="6"/>
+            <line x1="3" y1="10" x2="21" y2="10"/>
+            <path d="M12 14.5c0 0-0.8-.8-1.5-.8-.8 0-1.2.6-1.2 1.1 0 .9 2.7 2.2 2.7 2.2s2.7-1.3 2.7-2.2c0-.5-.4-1.1-1.2-1.1-.7 0-1.5.8-1.5.8z" fill="currentColor"/>
           </svg>
           <h4 class="text-[9px] md:text-[10px] font-extrabold text-goldbrown tracking-wider uppercase">PRE-ORDER</h4>
           <p class="text-[9px] md:text-[10px] text-rosepink font-medium mt-0.5">Only</p>
         </div>
 
         <!-- Card 4: Pickup Available -->
-        <div
-          class="flex flex-col items-center justify-center p-3 rounded-2xl hover:bg-blush/25 transition-all duration-300 group">
-          <!-- Map Pin with Heart Custom SVG Icon -->
-          <svg
-            class="w-7 h-7 text-rosepink mb-2 transform group-hover:scale-110 group-hover:translate-y-[-2px] transition-all duration-300"
-            viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"
-            stroke-linejoin="round">
-            <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z" fill="#FFF0F2" />
-            <path
-              d="M12 8.5c0 0-.4-.4-.8-.4-.5 0-.8.4-.8.7 0 .6 1.6 1.4 1.6 1.4s1.6-.8 1.6-1.4c0-.3-.3-.7-.8-.7-.4 0-.8.4-.8.4z"
-              fill="currentColor" />
+        <div class="flex flex-col items-center justify-center p-3 rounded-2xl hover:bg-blush/25 transition-all duration-300 group">
+          <svg class="w-7 h-7 text-rosepink mb-2 transform group-hover:scale-110 group-hover:translate-y-[-2px] transition-all duration-300" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z" fill="#FFF0F2"/>
+            <path d="M12 8.5c0 0-.4-.4-.8-.4-.5 0-.8.4-.8.7 0 .6 1.6 1.4 1.6 1.4s1.6-.8 1.6-1.4c0-.3-.3-.7-.8-.7-.4 0-.8.4-.8.4z" fill="currentColor"/>
           </svg>
           <h4 class="text-[9px] md:text-[10px] font-extrabold text-goldbrown tracking-wider uppercase">PICKUP</h4>
           <p class="text-[9px] md:text-[10px] text-rosepink font-medium mt-0.5">Available</p>
@@ -406,130 +323,455 @@
       </div>
     </section>
 
-    <!-- DM TO ORDER SECTION -->
-    <section class="w-full mt-6 relative z-10 flex flex-col items-center">
+    <!-- CAKE MENU SECTION (Interactive grid with state management) -->
+    <section class="w-full mt-10 relative z-10 flex flex-col items-center">
       <!-- Section Divider -->
-      <div
-        class="flex items-center justify-center space-x-3 w-full my-4 text-rosepink/70 font-semibold tracking-wider text-[10px] select-none">
+      <div class="flex items-center justify-center space-x-3 w-full my-4 text-rosepink/70 font-semibold tracking-wider text-[10px] select-none">
         <span class="h-[1px] w-10 md:w-16 bg-gradient-to-r from-transparent to-rosepink/40"></span>
         <span class="text-rosepink/90">♥</span>
-        <span class="font-serifHeading text-[#8B5A3C] tracking-[0.25em] text-[10px] font-extrabold uppercase">DM TO
-          ORDER</span>
+        <span class="font-serifHeading text-[#8B5A3C] tracking-[0.25em] text-[10px] font-extrabold uppercase">CAKE MENU</span>
         <span class="text-rosepink/90">♥</span>
         <span class="h-[1px] w-10 md:w-16 bg-gradient-to-l from-transparent to-rosepink/40"></span>
       </div>
 
-      <!-- Action Buttons Row -->
-      <div
-        class="flex flex-col sm:flex-row items-stretch sm:items-center justify-center gap-4 sm:gap-2.5 w-full max-w-[460px] mx-auto mt-2">
+      <p class="text-[11px] md:text-xs text-goldbrown/80 font-medium mb-6 text-center select-none">
+        Tap a cake below to select it, choose a size, and instantly copy the enquiry for Instagram message!
+      </p>
 
-        <!-- Instagram Link Box -->
-        <a href="https://instagram.com/sanjucakestudio" target="_blank" rel="noopener noreferrer"
-          class="flex-1 group flex flex-col items-center">
-          <div
-            class="w-full flex items-center justify-center space-x-2.5 bg-white border-2 border-lightpink rounded-2xl py-3 px-4 shadow-sm group-hover:border-rosepink group-hover:scale-[1.02] active:scale-[0.98] transition-all duration-300 cursor-pointer glow-hover relative overflow-hidden">
-            <!-- Shimmer effect inside button -->
-            <div
-              class="absolute inset-0 bg-gradient-to-r from-transparent via-white/30 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-1000 ease-out">
-            </div>
-
-            <!-- Instagram Icon -->
-            <svg class="w-5 h-5 flex-shrink-0" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-              <defs>
-                <linearGradient id="instaGradBtn" x1="0%" y1="100%" x2="100%" y2="0%">
-                  <stop offset="0%" stop-color="#FED976" />
-                  <stop offset="25%" stop-color="#FEB24C" />
-                  <stop offset="50%" stop-color="#FD8D3C" />
-                  <stop offset="70%" stop-color="#FC4E2A" />
-                  <stop offset="85%" stop-color="#E31A1C" />
-                  <stop offset="100%" stop-color="#BD0026" />
-                </linearGradient>
-              </defs>
-              <rect x="2" y="2" width="20" height="20" rx="5" ry="5" stroke="url(#instaGradBtn)" stroke-width="2" />
-              <circle cx="12" cy="12" r="4" stroke="url(#instaGradBtn)" stroke-width="2" />
-              <circle cx="18" cy="6" r="1.5" fill="url(#instaGradBtn)" />
+      <!-- Cake Grid (2 columns on mobile, 3 on tablet, 4 on desktop) -->
+      <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-3 w-full">
+        
+        <!-- Vanilla Card -->
+        <div id="card-vanilla" onclick="selectCake('vanilla')" class="bg-white/80 hover:bg-white border-2 border-rosepink bg-rosepink/5 ring-2 ring-rosepink/25 shadow-sm rounded-2xl p-4 flex flex-col items-center justify-center text-center cursor-pointer transition-all duration-300 relative select-none group">
+          <span class="select-heart absolute top-2 right-2 text-rosepink transition-opacity duration-300 text-[10px]">♥</span>
+          <div class="w-9 h-9 flex items-center justify-center rounded-full bg-blush/60 text-rosepink mb-2">
+            <svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M12 2v4M12 9a3 3 0 0 0-3 3v7h6v-7a3 3 0 0 0-3-3z" fill="#FFF0F2"/>
+              <path d="M6 19h12M5 16h14"/>
             </svg>
-            <span
-              class="text-rosepink font-extrabold text-xs md:text-sm tracking-wide group-hover:scale-105 transition-transform">
-              @sanjucakestudio
-            </span>
           </div>
-          <span
-            class="text-[9px] md:text-[10px] text-goldbrown/80 font-semibold mt-1.5 tracking-wide group-hover:text-rosepink transition-colors duration-200">
-            Click to DM on Instagram
-          </span>
-        </a>
-
-        <!-- OR Badge -->
-        <div class="flex items-center justify-center self-center my-0.5 sm:my-0 sm:px-1.5 relative z-10 select-none">
-          <div
-            class="w-7 h-7 rounded-full bg-blush text-rosepink border border-lightpink flex items-center justify-center font-serif text-[10px] font-extrabold shadow-sm">
-            OR
-          </div>
+          <span class="font-extrabold text-xs text-goldbrown">Vanilla</span>
+          <span class="text-[9px] text-rosepink/80 font-bold mt-1">₹350 / ₹450</span>
         </div>
 
-        <!-- WhatsApp Link Box -->
-        <a href="https://wa.me/917898471944" target="_blank" rel="noopener noreferrer"
-          class="flex-1 group flex flex-col items-center">
-          <div
-            class="w-full flex items-center justify-center space-x-2.5 bg-white border-2 border-lightpink rounded-2xl py-3 px-4 shadow-sm group-hover:border-rosepink group-hover:scale-[1.02] active:scale-[0.98] transition-all duration-300 cursor-pointer glow-hover relative overflow-hidden">
-            <!-- Shimmer effect inside button -->
-            <div
-              class="absolute inset-0 bg-gradient-to-r from-transparent via-white/30 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-1000 ease-out">
-            </div>
-
-            <!-- WhatsApp Icon -->
-            <svg class="w-5 h-5 flex-shrink-0" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-              <path
-                d="M12.012 2c-5.506 0-9.988 4.482-9.988 9.988 0 1.76.458 3.41 1.258 4.86L2 22l5.334-1.4c1.39.756 2.972 1.188 4.654 1.188 5.506 0 10.012-4.482 10.012-9.988C22.024 6.482 17.518 2 12.012 2z"
-                fill="#25D366" />
-              <path
-                d="M16.924 14.156c-.27-.136-1.594-.786-1.84-.876-.248-.09-.43-.136-.61.136-.18.27-.7.876-.856 1.056-.156.18-.314.202-.584.066-.27-.136-1.14-.42-2.172-1.34-.8-.714-1.34-1.598-1.498-1.868-.156-.27-.016-.416.12-.55.12-.12.27-.314.404-.472.136-.156.18-.27.27-.45.09-.18.046-.336-.022-.472-.068-.136-.61-1.468-.836-2.012-.22-.53-.442-.458-.61-.466-.156-.008-.336-.008-.516-.008-.18 0-.472.068-.72.336-.248.27-.946.922-.946 2.25 0 1.328.966 2.61 1.1 2.79.136.18 1.9 2.9 4.6 4.07.643.278 1.144.444 1.534.568.647.206 1.236.177 1.7.108.518-.078 1.594-.652 1.818-1.252.226-.6.226-1.114.158-1.224-.068-.112-.248-.202-.518-.338z"
-                fill="#FFF" />
+        <!-- Chocolate Card -->
+        <div id="card-chocolate" onclick="selectCake('chocolate')" class="bg-white/80 hover:bg-white border-2 border-lightpink/40 rounded-2xl p-4 flex flex-col items-center justify-center text-center cursor-pointer transition-all duration-300 relative select-none group">
+          <span class="select-heart absolute top-2 right-2 text-rosepink opacity-0 transition-opacity duration-300 text-[10px]">♥</span>
+          <div class="w-9 h-9 flex items-center justify-center rounded-full bg-blush/60 text-rosepink mb-2">
+            <svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M4 11h16v8a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2v-8z" fill="#FFF0F2"/>
+              <path d="M3 11l9-6 9 6"/>
+              <path d="M7 15h10"/>
             </svg>
-            <span
-              class="text-rosepink font-extrabold text-xs md:text-sm tracking-wide group-hover:scale-105 transition-transform">
-              DM on WhatsApp
-            </span>
           </div>
-          <span
-            class="text-[9px] md:text-[10px] text-goldbrown/80 font-semibold mt-1.5 tracking-wide group-hover:text-rosepink transition-colors duration-200">
-            Click to Chat on WhatsApp
-          </span>
-        </a>
+          <span class="font-extrabold text-xs text-goldbrown">Chocolate</span>
+          <span class="text-[9px] text-rosepink/80 font-bold mt-1">₹380 / ₹500</span>
+        </div>
+
+        <!-- Rasmalai Card -->
+        <div id="card-rasmalai" onclick="selectCake('rasmalai')" class="bg-white/80 hover:bg-white border-2 border-lightpink/40 rounded-2xl p-4 flex flex-col items-center justify-center text-center cursor-pointer transition-all duration-300 relative select-none group">
+          <span class="select-heart absolute top-2 right-2 text-rosepink opacity-0 transition-opacity duration-300 text-[10px]">♥</span>
+          <div class="w-9 h-9 flex items-center justify-center rounded-full bg-blush/60 text-rosepink mb-2">
+            <svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+              <circle cx="12" cy="12" r="9" fill="#FFF0F2"/>
+              <circle cx="9" cy="10" r="1.5" fill="currentColor" opacity="0.4"/>
+              <circle cx="15" cy="11" r="1.2" fill="currentColor" opacity="0.4"/>
+              <circle cx="11" cy="15" r="1" fill="currentColor" opacity="0.4"/>
+              <path d="M8 8s2-2 4 0 4 0 4 0"/>
+            </svg>
+          </div>
+          <span class="font-extrabold text-xs text-goldbrown">Rasmalai</span>
+          <span class="text-[9px] text-rosepink/80 font-bold mt-1">₹450 / ₹550</span>
+        </div>
+
+        <!-- Pineapple Card -->
+        <div id="card-pineapple" onclick="selectCake('pineapple')" class="bg-white/80 hover:bg-white border-2 border-lightpink/40 rounded-2xl p-4 flex flex-col items-center justify-center text-center cursor-pointer transition-all duration-300 relative select-none group">
+          <span class="select-heart absolute top-2 right-2 text-rosepink opacity-0 transition-opacity duration-300 text-[10px]">♥</span>
+          <div class="w-9 h-9 flex items-center justify-center rounded-full bg-blush/60 text-rosepink mb-2">
+            <svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+              <circle cx="12" cy="12" r="8" fill="#FFF0F2"/>
+              <circle cx="12" cy="12" r="2" fill="#FFF"/>
+              <path d="M12 2v2M12 20v2M2 12h2M20 12h2"/>
+            </svg>
+          </div>
+          <span class="font-extrabold text-xs text-goldbrown">Pineapple</span>
+          <span class="text-[9px] text-rosepink/80 font-bold mt-1">₹350 / ₹450</span>
+        </div>
+
+        <!-- Mango Card -->
+        <div id="card-mango" onclick="selectCake('mango')" class="bg-white/80 hover:bg-white border-2 border-lightpink/40 rounded-2xl p-4 flex flex-col items-center justify-center text-center cursor-pointer transition-all duration-300 relative select-none group">
+          <span class="select-heart absolute top-2 right-2 text-rosepink opacity-0 transition-opacity duration-300 text-[10px]">♥</span>
+          <div class="w-9 h-9 flex items-center justify-center rounded-full bg-blush/60 text-rosepink mb-2">
+            <svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M12 21c-5-1-7-5-7-10 0-4.5 3.5-7 7-7s7 2.5 7 7c0 5-2 9-7 10z" fill="#FFF0F2"/>
+              <path d="M12 2c1 1.5 1.5 3 0 7.5"/>
+            </svg>
+          </div>
+          <span class="font-extrabold text-xs text-goldbrown">Mango</span>
+          <span class="text-[9px] text-rosepink/80 font-bold mt-1">₹350 / ₹450</span>
+        </div>
+
+        <!-- Strawberry Card -->
+        <div id="card-strawberry" onclick="selectCake('strawberry')" class="bg-white/80 hover:bg-white border-2 border-lightpink/40 rounded-2xl p-4 flex flex-col items-center justify-center text-center cursor-pointer transition-all duration-300 relative select-none group">
+          <span class="select-heart absolute top-2 right-2 text-rosepink opacity-0 transition-opacity duration-300 text-[10px]">♥</span>
+          <div class="w-9 h-9 flex items-center justify-center rounded-full bg-blush/60 text-rosepink mb-2">
+            <svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M12 2C8.5 2 6 5 6 9c0 5 6 11 6 11s6-6 6-11c0-4-2.5-7-6-7z" fill="#FFF0F2"/>
+              <circle cx="9" cy="8" r="0.5" fill="currentColor"/>
+              <circle cx="15" cy="8" r="0.5" fill="currentColor"/>
+              <circle cx="12" cy="11" r="0.5" fill="currentColor"/>
+            </svg>
+          </div>
+          <span class="font-extrabold text-xs text-goldbrown">Strawberry</span>
+          <span class="text-[9px] text-rosepink/80 font-bold mt-1">₹350 / ₹450</span>
+        </div>
+
+        <!-- Black Forest Card -->
+        <div id="card-blackforest" onclick="selectCake('blackforest')" class="bg-white/80 hover:bg-white border-2 border-lightpink/40 rounded-2xl p-4 flex flex-col items-center justify-center text-center cursor-pointer transition-all duration-300 relative select-none group">
+          <span class="select-heart absolute top-2 right-2 text-rosepink opacity-0 transition-opacity duration-300 text-[10px]">♥</span>
+          <div class="w-9 h-9 flex items-center justify-center rounded-full bg-blush/60 text-rosepink mb-2">
+            <svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M4 11h16v9H4v-9z" fill="#FFF0F2"/>
+              <path d="M12 11V3l4 4"/>
+              <circle cx="16" cy="7" r="1" fill="currentColor"/>
+              <path d="M4 11s3.5-3 8-3 8 3 8 3"/>
+            </svg>
+          </div>
+          <span class="font-extrabold text-xs text-goldbrown">Black Forest</span>
+          <span class="text-[9px] text-rosepink/80 font-bold mt-1">₹500 / ₹600</span>
+        </div>
+
+        <!-- Chocolate Truffle Card -->
+        <div id="card-truffle" onclick="selectCake('truffle')" class="bg-white/80 hover:bg-white border-2 border-lightpink/40 rounded-2xl p-4 flex flex-col items-center justify-center text-center cursor-pointer transition-all duration-300 relative select-none group">
+          <span class="select-heart absolute top-2 right-2 text-rosepink opacity-0 transition-opacity duration-300 text-[10px]">♥</span>
+          <div class="w-9 h-9 flex items-center justify-center rounded-full bg-blush/60 text-rosepink mb-2">
+            <svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+              <rect x="5" y="5" width="14" height="14" rx="3.5" fill="#FFF0F2"/>
+              <path d="M5 10c3 0 5-1.5 7.5-1.5s4.5 1.5 6.5 1.5"/>
+              <circle cx="12" cy="12" r="1.5" fill="currentColor" opacity="0.4"/>
+            </svg>
+          </div>
+          <span class="font-extrabold text-xs text-goldbrown">Choc Truffle</span>
+          <span class="text-[9px] text-rosepink/80 font-bold mt-1">₹350 / ₹450</span>
+        </div>
+
+        <!-- Butterscotch Card -->
+        <div id="card-butterscotch" onclick="selectCake('butterscotch')" class="bg-white/80 hover:bg-white border-2 border-lightpink/40 rounded-2xl p-4 flex flex-col items-center justify-center text-center cursor-pointer transition-all duration-300 relative select-none group">
+          <span class="select-heart absolute top-2 right-2 text-rosepink opacity-0 transition-opacity duration-300 text-[10px]">♥</span>
+          <div class="w-9 h-9 flex items-center justify-center rounded-full bg-blush/60 text-rosepink mb-2">
+            <svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M12 21c4.4 0 8-3.6 8-8V9H4v4c0 4.4 3.6 8 8 8z" fill="#FFF0F2"/>
+              <path d="M4 9c0-2.8 2.2-5 5-5h6c2.8 0 5 2.2 5 5H4z"/>
+              <path d="M8 9v4M16 9v4"/>
+            </svg>
+          </div>
+          <span class="font-extrabold text-xs text-goldbrown">Butterscotch</span>
+          <span class="text-[9px] text-rosepink/80 font-bold mt-1">₹350 / ₹450</span>
+        </div>
+
+        <!-- Bento Cake Card -->
+        <div id="card-bento" onclick="selectCake('bento')" class="bg-white/80 hover:bg-white border-2 border-lightpink/40 rounded-2xl p-4 flex flex-col items-center justify-center text-center cursor-pointer transition-all duration-300 relative select-none group">
+          <span class="select-heart absolute top-2 right-2 text-rosepink opacity-0 transition-opacity duration-300 text-[10px]">♥</span>
+          <div class="w-9 h-9 flex items-center justify-center rounded-full bg-blush/60 text-rosepink mb-2">
+            <svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+              <rect x="4" y="6" width="16" height="14" rx="2" fill="#FFF0F2"/>
+              <path d="M4 11h16M10 6v14"/>
+            </svg>
+          </div>
+          <span class="font-extrabold text-xs text-goldbrown">Bento Cake</span>
+          <span class="text-[9px] text-rosepink/80 font-bold mt-1">₹300 (450ml Box)</span>
+        </div>
 
       </div>
     </section>
 
-    <!-- BOTTOM NOTE BADGE -->
-    <footer class="w-full mt-6 flex items-center justify-center relative z-10">
-      <div
-        class="inline-flex items-center justify-center space-x-1.5 bg-blush px-5 py-2 rounded-full border border-lightpink/40 shadow-[0_4px_15px_rgba(224,90,107,0.05)] hover:scale-105 transition-transform duration-300 select-none cursor-default">
-        <span
-          class="text-rosepink text-[9px] md:text-[10px] font-extrabold tracking-widest uppercase flex items-center gap-1.5">
+    <!-- DYNAMIC INSTAGRAM ENQUIRY SYSTEM (Summary & Size Controls) -->
+    <section class="w-full mt-6 relative z-10">
+      <div class="bg-white/90 backdrop-blur-md border border-[#F8D6DB]/60 rounded-3xl p-5 md:p-6 shadow-[0_20px_50px_rgba(224,90,107,0.08)] flex flex-col items-center select-none w-full">
+        
+        <!-- Summary Header -->
+        <div class="text-[10px] md:text-xs font-bold text-goldbrown/85 tracking-[0.2em] uppercase mb-4 text-center">
+          ✨ Your Selection Summary ✨
+        </div>
+
+        <!-- Selected Cake Name, Subtitle & Dynamic Price display -->
+        <div class="flex items-baseline justify-between w-full pb-3 border-b border-lightpink/30 mb-4 px-1">
+          <div class="text-left">
+            <span id="summary-cake-name" class="font-serifHeading text-lg md:text-xl font-bold text-rosepink">Vanilla</span>
+            <span id="summary-cake-subtitle" class="text-xs text-goldbrown font-medium hidden"> (450 ml Box)</span>
+          </div>
+          <div id="summary-cake-price" class="font-sans text-xl md:text-2xl font-extrabold text-rosepink">₹350</div>
+        </div>
+
+        <!-- Size Toggle Controls -->
+        <div class="flex items-center justify-between w-full mb-6 px-1">
+          <span class="text-xs font-bold text-goldbrown tracking-wide">Select Cake Weight:</span>
+          <div class="flex bg-blush/40 p-1.5 rounded-full border border-lightpink/30">
+            <!-- 1 Pound Tab -->
+            <button id="size-btn-1" onclick="selectSize('1')" class="bg-rosepink text-white border-rosepink shadow-md text-xs font-bold px-4 py-1.5 rounded-full border transition-all duration-300">
+              1 Pound
+            </button>
+            <!-- 2 Pound Tab -->
+            <button id="size-btn-2" onclick="selectSize('2')" class="bg-transparent text-rosepink border-transparent text-xs font-bold px-4 py-1.5 rounded-full border transition-all duration-300 ml-1">
+              2 Pound
+            </button>
+          </div>
+        </div>
+
+        <!-- Dynamic Instagram Checkout Button -->
+        <button onclick="copyAndOpenInstagram()" class="w-full flex items-center justify-center space-x-3 bg-gradient-to-r from-[#E1306C] via-[#C13584] to-[#F77737] text-white font-extrabold text-sm md:text-base py-3.5 px-6 rounded-2xl shadow-lg hover:shadow-xl transition-all duration-300 active:scale-[0.98] glow-hover-insta group relative overflow-hidden">
+          <!-- Shimmer overlay -->
+          <div class="absolute inset-0 bg-gradient-to-r from-transparent via-white/25 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-1000 ease-out"></div>
+          
+          <!-- Instagram Icon -->
+          <svg class="w-6 h-6 flex-shrink-0" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <rect x="2" y="2" width="20" height="20" rx="5" ry="5" stroke="currentColor" stroke-width="2.2"/>
+            <circle cx="12" cy="12" r="4" stroke="currentColor" stroke-width="2.2"/>
+            <circle cx="18" cy="6" r="1.5" fill="currentColor"/>
+          </svg>
+          <span id="instagram-enquiry-text" class="tracking-wide group-hover:scale-102 transition-transform">
+            Send Enquiry on Instagram
+          </span>
+        </button>
+        <span class="text-[9px] text-goldbrown/70 font-semibold mt-2.5 tracking-wide text-center">
+          Clicking copies your enquiry to clipboard and opens Instagram messages!
+        </span>
+      </div>
+    </section>
+
+
+    <!-- BOTTOM THANK YOU BADGE (Sits directly on page background) -->
+    <footer class="w-full mt-8 flex items-center justify-center relative z-10">
+      <div class="inline-flex items-center justify-center space-x-1.5 bg-blush px-5 py-2 rounded-full border border-lightpink/40 shadow-[0_4px_15px_rgba(224,90,107,0.05)] hover:scale-105 transition-transform duration-300 select-none cursor-default mb-6">
+        <span class="text-rosepink text-[9px] md:text-[10px] font-extrabold tracking-widest uppercase flex items-center gap-1.5">
           ♥ THANK YOU FOR SUPPORTING HOME BAKERY ♥
         </span>
       </div>
     </footer>
 
-  </main>
+  </div>
 
-  <!-- Interactive script to spawn blossoms, hearts, and sparkles dynamically -->
+  <!-- Interactive script to handle background blossoms & select cake enquiry system -->
   <script>
+    // Cake menu database matching prices and items in cakemenu.png
+    const cakeMenu = [
+      { id: 'vanilla', name: 'Vanilla', price1: 350, price2: 450, subtitle: null },
+      { id: 'chocolate', name: 'Chocolate', price1: 380, price2: 500, subtitle: null },
+      { id: 'rasmalai', name: 'Rasmalai', price1: 450, price2: 550, subtitle: null },
+      { id: 'pineapple', name: 'Pineapple', price1: 350, price2: 450, subtitle: null },
+      { id: 'mango', name: 'Mango', price1: 350, price2: 450, subtitle: null },
+      { id: 'strawberry', name: 'Strawberry', price1: 350, price2: 450, subtitle: null },
+      { id: 'blackforest', name: 'Black Forest', price1: 500, price2: 600, subtitle: null },
+      { id: 'truffle', name: 'Chocolate Truffle', price1: 350, price2: 450, subtitle: null },
+      { id: 'butterscotch', name: 'Butterscotch', price1: 350, price2: 450, subtitle: null },
+      { id: 'bento', name: 'Bento Cake', price1: 300, price2: null, subtitle: '450 ml Box' }
+    ];
+
+    let selectedCakeId = 'vanilla';
+    let selectedSize = '1'; // '1' = 1 Pound, '2' = 2 Pound
+
+    // Helper functions to manage size selector buttons styling cleanly
+    function setButtonActive(btn) {
+      btn.classList.remove('bg-white', 'bg-transparent', 'text-rosepink', 'border-lightpink', 'border-transparent', 'shadow-none');
+      btn.classList.add('bg-rosepink', 'text-white', 'border-rosepink', 'shadow-md');
+    }
+
+    function setButtonInactive(btn) {
+      btn.classList.remove('bg-rosepink', 'bg-transparent', 'text-white', 'border-rosepink', 'border-transparent', 'shadow-md');
+      btn.classList.add('bg-white', 'text-rosepink', 'border-lightpink');
+    }
+
+    // Select cake and toggle active styles
+    function selectCake(cakeId) {
+      if (selectedCakeId === cakeId) return;
+
+      // Deselect old card
+      const prevCard = document.getElementById(`card-${selectedCakeId}`);
+      if (prevCard) {
+        prevCard.classList.remove('border-rosepink', 'bg-rosepink/5', 'ring-2', 'ring-rosepink/25', 'shadow-md');
+        prevCard.classList.add('border-lightpink/40', 'bg-white/80');
+        const heart = prevCard.querySelector('.select-heart');
+        if (heart) heart.classList.add('opacity-0');
+      }
+
+      // Select new card
+      selectedCakeId = cakeId;
+      const newCard = document.getElementById(`card-${cakeId}`);
+      if (newCard) {
+        newCard.classList.remove('border-lightpink/40', 'bg-white/80');
+        newCard.classList.add('border-rosepink', 'bg-rosepink/5', 'ring-2', 'ring-rosepink/25', 'shadow-md');
+        const heart = newCard.querySelector('.select-heart');
+        if (heart) heart.classList.remove('opacity-0');
+      }
+
+      // Retrieve cake details
+      const cake = cakeMenu.find(c => c.id === cakeId);
+      if (!cake) return;
+
+      // Update Summary Header Name
+      document.getElementById('summary-cake-name').innerText = cake.name;
+      
+      const subtitleSpan = document.getElementById('summary-cake-subtitle');
+      if (cake.subtitle) {
+        subtitleSpan.innerText = ` (${cake.subtitle})`;
+        subtitleSpan.classList.remove('hidden');
+      } else {
+        subtitleSpan.classList.add('hidden');
+      }
+
+      // Render size toggles based on whether 2 Pound is available
+      const btn1 = document.getElementById('size-btn-1');
+      const btn2 = document.getElementById('size-btn-2');
+
+      if (cake.price2 === null) {
+        // Bento Box: Only 1 size option
+        btn1.innerText = 'Bento Box';
+        btn2.classList.add('hidden');
+        selectedSize = '1';
+        
+        // Ensure button 1 is selected visually
+        setButtonActive(btn1);
+      } else {
+        btn1.innerText = '1 Pound';
+        btn2.classList.remove('hidden');
+        
+        // Keep selected size, or fall back to 1
+        if (selectedSize === '2' && cake.price2 === null) {
+          selectedSize = '1';
+        }
+        
+        // Reset styles for size buttons
+        if (selectedSize === '1') {
+          setButtonActive(btn1);
+          setButtonInactive(btn2);
+        } else {
+          setButtonActive(btn2);
+          setButtonInactive(btn1);
+        }
+      }
+
+      updatePricingUI();
+    }
+
+    // Toggle selected weight / size
+    function selectSize(sizeId) {
+      const cake = cakeMenu.find(c => c.id === selectedCakeId);
+      if (!cake) return;
+      if (sizeId === '2' && cake.price2 === null) return; // invalid size choice
+
+      selectedSize = sizeId;
+
+      const btn1 = document.getElementById('size-btn-1');
+      const btn2 = document.getElementById('size-btn-2');
+
+      if (selectedSize === '1') {
+        setButtonActive(btn1);
+        setButtonInactive(btn2);
+      } else {
+        setButtonActive(btn2);
+        setButtonInactive(btn1);
+      }
+
+      updatePricingUI();
+    }
+
+    // Recalculate price and update texts
+    function updatePricingUI() {
+      const cake = cakeMenu.find(c => c.id === selectedCakeId);
+      if (!cake) return;
+
+      const price = selectedSize === '1' ? cake.price1 : cake.price2;
+      
+      // Update Price UI
+      document.getElementById('summary-cake-price').innerText = `₹${price}`;
+
+      // Update Enquiry Button Text
+      document.getElementById('instagram-enquiry-text').innerText = `Send Enquiry on Instagram`;
+    }
+
+    // Build the enquiry message string
+    function buildMessage() {
+      const cake = cakeMenu.find(c => c.id === selectedCakeId);
+      if (!cake) return '';
+      const price = selectedSize === '1' ? cake.price1 : cake.price2;
+      const sizeLabel = cake.price2 === null ? 'Bento Box (450 ml)' : (selectedSize === '1' ? '1 Pound' : '2 Pound');
+      return `Hi Sanju's Cake Studio! 🌸 I would like to make an enquiry for:
+
+🎂 Cake: ${cake.name}${cake.subtitle ? ` (${cake.subtitle})` : ''}
+⚖️ Size: ${sizeLabel}
+💰 Price: ₹${price}
+
+Is it available for order? Thank you! 💕`;
+    }
+
+    // Show the enquiry modal with the formatted message
+    function copyAndOpenInstagram() {
+      const msg = buildMessage();
+      document.getElementById('modal-message-text').textContent = msg;
+      document.getElementById('modal-copy-label').textContent = 'Copy & Open Instagram';
+      document.getElementById('modal-copy-btn').classList.remove('btn-copied');
+      const modal = document.getElementById('enquiry-modal');
+      modal.classList.remove('hidden');
+      // Prevent body scroll while modal open
+      document.body.style.overflow = 'hidden';
+    }
+
+    // Close the modal
+    function closeModal() {
+      const modal = document.getElementById('enquiry-modal');
+      modal.classList.add('hidden');
+      document.body.style.overflow = '';
+    }
+
+    // Copy to clipboard & open Instagram from inside the modal
+    function modalCopyAndOpen() {
+      const msg = buildMessage();
+      const btn = document.getElementById('modal-copy-btn');
+      const label = document.getElementById('modal-copy-label');
+
+      navigator.clipboard.writeText(msg).then(() => {
+        // Feedback: shimmer + tick label
+        btn.classList.add('btn-copied');
+        label.textContent = '✓ Copied! Opening Instagram...';
+
+        // Open Instagram after short delay
+        setTimeout(() => {
+          window.open('https://ig.me/m/sanjucakestudio', '_blank');
+        }, 500);
+
+        // Close modal after 2s
+        setTimeout(() => {
+          closeModal();
+          btn.classList.remove('btn-copied');
+          label.textContent = 'Copy & Open Instagram';
+        }, 2200);
+      }).catch(() => {
+        // Fallback if clipboard blocked: just open Instagram
+        window.open('https://ig.me/m/sanjucakestudio', '_blank');
+        closeModal();
+      });
+    }
+
+    // Close modal if backdrop clicked
+    document.addEventListener('DOMContentLoaded', () => {
+      document.getElementById('enquiry-modal').addEventListener('click', function(e) {
+        if (e.target === this) closeModal();
+      });
+    });
+
     // Create elements dynamically inside the background container
     function initDynamicBackground() {
       const container = document.getElementById('petal-container');
       if (!container) return;
 
       const itemsCount = 18; // total floating items at any time
-
+      
       for (let i = 0; i < itemsCount; i++) {
         createFloatingElement(container, true);
       }
 
       // Periodically spawn new ones as old ones disappear
       setInterval(() => {
-        // Only spawn if active tab and not too many elements
         if (document.visibilityState === 'visible' && container.childElementCount < itemsCount + 5) {
           createFloatingElement(container, false);
         }
@@ -542,18 +784,15 @@
 
       // Randomly select type: 0 = blossom petal, 1 = heart, 2 = gold sparkle
       const type = Math.floor(Math.random() * 3);
-
+      
       if (type === 0) {
-        // Cherry Blossom Petal (Tailwind-styled CSS blossom shape)
         element.className += ' w-3 h-3 bg-gradient-to-br from-[#FFF5F6] to-[#F9C2CD] rounded-[50%_0_50%_50%] transform rotate-[45deg] opacity-75';
       } else if (type === 1) {
-        // Heart
         element.innerHTML = '♥';
         element.style.color = '#F9C2CD';
         element.style.fontSize = `${Math.random() * 8 + 8}px`;
         element.style.opacity = '0.7';
       } else {
-        // Sparkle
         element.innerHTML = '✦';
         element.style.color = '#E5C384';
         element.style.fontSize = `${Math.random() * 8 + 8}px`;
@@ -563,23 +802,22 @@
       // Timing values
       const fallDuration = Math.random() * 12 + 10; // 10s to 22s
       const driftDuration = Math.random() * 4 + 3;  // 3s to 7s
-      const delay = Math.random() * -fallDuration;  // Start instantly at various stages of animation if requested
+      const delay = Math.random() * -fallDuration;
 
       element.style.left = `${Math.random() * 100}%`;
       element.style.top = startAnywhere ? `${Math.random() * 100}%` : `-20px`;
-
+      
       element.style.animation = `
         fall ${fallDuration}s linear infinite,
         drift ${driftDuration}s ease-in-out infinite alternate
       `;
-
+      
       if (startAnywhere) {
         element.style.animationDelay = `${delay}s, ${Math.random() * -5}s`;
       } else {
         element.style.animationDelay = `0s, ${Math.random() * -5}s`;
       }
 
-      // Self cleanup when finished falling
       setTimeout(() => {
         if (element.parentNode === parent) {
           parent.removeChild(element);
@@ -592,7 +830,10 @@
     // Initialize once page is loaded
     document.addEventListener('DOMContentLoaded', () => {
       initDynamicBackground();
-
+      
+      // Select the default cake (Vanilla) to pre-fill the WhatsApp link
+      updatePricingUI();
+      
       // Initialize Lucide icons if loaded
       if (typeof lucide !== 'undefined') {
         lucide.createIcons();
@@ -600,5 +841,4 @@
     });
   </script>
 </body>
-
 </html>
