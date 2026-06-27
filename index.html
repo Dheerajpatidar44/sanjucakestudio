@@ -156,6 +156,32 @@
       background-size: 200% auto;
       animation: shimmerCopy 1.2s linear infinite;
     }
+    /* Preloader animations */
+    @keyframes spinCircle {
+      0% { transform: rotate(0deg); }
+      100% { transform: rotate(360deg); }
+    }
+    .rotate-animation {
+      animation: spinCircle 1.6s cubic-bezier(0.4, 0, 0.2, 1) infinite;
+    }
+
+    @keyframes heartBeat {
+      0%, 100% { transform: scale(1); }
+      25% { transform: scale(1.15); }
+      50% { transform: scale(1); }
+      75% { transform: scale(1.15); }
+    }
+    .heartbeat-animation {
+      animation: heartBeat 1.4s ease-in-out infinite;
+    }
+    /* Preloader Swipe-Up Transition */
+    #preloader {
+      transition: transform 1s cubic-bezier(0.85, 0, 0.15, 1);
+      transform: translateY(0);
+    }
+    #preloader.hide-active {
+      transform: translateY(-100%);
+    }
     
     /* Custom scroll behavior */
     html {
@@ -164,6 +190,37 @@
   </style>
 </head>
 <body class="bg-gradient-to-br from-[#FFF5F6] via-[#FFFDFD] to-[#FCE7E9] min-h-screen py-8 px-4 relative overflow-x-hidden">
+
+  <!-- Premium Brand Preloader -->
+  <div id="preloader" class="fixed inset-0 z-50 flex flex-col items-center justify-center bg-gradient-to-br from-[#FFF5F6] via-[#FFFDFD] to-[#FCE7E9] select-none">
+    <div class="relative flex flex-col items-center">
+      <!-- Glow effect behind loader -->
+      <div class="absolute w-32 h-32 rounded-full bg-rosepink/10 blur-3xl animate-pulse"></div>
+      
+      <!-- Outer revolving golden dashed ring -->
+      <div class="relative w-24 h-24 flex items-center justify-center">
+        <!-- SVG Ring spinner -->
+        <svg class="absolute inset-0 w-full h-full rotate-animation" viewBox="0 0 100 100">
+          <circle cx="50" cy="50" r="42" stroke="#F8D6DB" stroke-width="3" fill="none" stroke-linecap="round" />
+          <circle cx="50" cy="50" r="42" stroke="#E05A6B" stroke-width="3.5" fill="none" stroke-linecap="round"
+                  stroke-dasharray="260" stroke-dashoffset="180" />
+        </svg>
+        
+        <!-- Central Beating Heart Icon -->
+        <div class="text-rosepink text-3xl heartbeat-animation relative z-10 flex items-center justify-center">
+          🎂
+        </div>
+      </div>
+      
+      <!-- Brand Name / Loading Text -->
+      <h2 class="font-logoScript text-4xl text-rosepink mt-5 tracking-wide filter drop-shadow-sm select-none">
+        Sanju's
+      </h2>
+      <h3 class="font-serifHeading text-[9px] tracking-[0.25em] text-goldbrown font-extrabold uppercase mt-1 select-none animate-pulse">
+        Baking Magic...
+      </h3>
+    </div>
+  </div>
 
   <!-- Enquiry Modal Overlay -->
   <div id="enquiry-modal" class="hidden fixed inset-0 z-50 flex items-end sm:items-center justify-center bg-black/40 px-4 pb-4 sm:pb-0">
@@ -224,8 +281,8 @@
 
 
     <!-- Floating Instagram CTA Button (top right) -->
-    <a href="https://ig.me/m/sanjucakestudio" target="_blank" rel="noopener noreferrer"
-       class="absolute top-3 right-3 z-20 select-none group" title="Message on Instagram">
+    <a href="https://instagram.com/sanjucakestudio" target="_blank" rel="noopener noreferrer"
+       class="absolute top-3 right-3 z-20 select-none group" title="Visit Instagram Profile">
       <!-- Pulsing glow ring -->
       <span class="absolute inset-0 rounded-full bg-gradient-to-tr from-[#F77737] via-[#C13584] to-[#E1306C] opacity-30 blur-md scale-110 group-hover:opacity-60 group-hover:scale-125 transition-all duration-500"></span>
       <!-- Icon button -->
@@ -241,22 +298,26 @@
     <!-- LOGO SECTION -->
     <header class="flex flex-col items-center text-center relative z-10 w-full mt-4">
       <img src="logo.png" alt="Sanju's Cake Studio Logo"
-           class="w-48 sm:w-56 md:w-64 h-auto object-contain drop-shadow-md select-none" />
+           class="w-60 sm:w-64 md:w-72 h-auto object-contain drop-shadow-md select-none" />
     </header>
 
     <!-- HERO SECTION (Sits directly on main background) -->
     <section class="flex flex-col items-center w-full mt-3 relative z-10 text-center">
       <!-- Main Title -->
-      <h1 class="font-headingScript text-4xl md:text-[2.75rem] text-rosepink mt-1 mb-3 leading-tight select-none">
+      <h1 class="font-headingScript text-4xl md:text-[2.75rem] text-rosepink mt-1 leading-tight select-none">
         Order Chalu Hogye! <span class="font-sans font-light text-3xl align-middle">♡</span>
       </h1>
+      <h2 class="font-headingScript text-3xl md:text-[2.25rem] text-rosepink/90 mb-3 leading-tight select-none">
+        Diet Kal Se! 🍰
+      </h2>
 
       <!-- Subtext Badge -->
-      <div class="inline-flex items-center space-x-1.5 bg-blush/90 border border-lightpink/50 rounded-full px-4 py-1.5 shadow-sm transition-transform duration-300 hover:scale-105 select-none mb-6">
+      <div class="inline-flex items-center space-x-1.5 bg-blush/90 border border-lightpink/50 rounded-full px-4 py-1.5 shadow-sm transition-transform duration-300 hover:scale-105 select-none mb-4">
         <span class="text-rosepink text-[10px] md:text-xs font-bold tracking-widest uppercase flex items-center gap-1">
           ♥ FRESHLY BAKED WITH LOVE ♥
         </span>
       </div>
+
 
       <!-- Centered Premium Cake Image Box -->
       <div class="relative w-64 h-64 sm:w-72 sm:h-72 md:w-80 md:h-80 mx-auto group">
@@ -555,9 +616,45 @@
       </div>
     </section>
 
+      <!-- Interactive Baker's Note Card -->
+      <div class="w-full max-w-[320px] mx-auto mb-6 mt-4 bg-white/80 border border-lightpink/50 rounded-2xl p-3.5 shadow-sm hover:shadow-md transition-all duration-300 relative z-10 text-left select-none cursor-pointer group" onclick="toggleBakersNote()">
+        <div class="flex items-center justify-between">
+          <div class="flex items-center space-x-2">
+            <span class="flex h-2 w-2 relative">
+              <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-rosepink opacity-75"></span>
+              <span class="relative inline-flex rounded-full h-2 w-2 bg-rosepink"></span>
+            </span>
+            <span class="text-[10px] md:text-xs font-extrabold text-goldbrown tracking-wide">Studio Guidelines &amp; Info</span>
+          </div>
+          <div class="flex items-center space-x-1 text-[10px] md:text-xs text-rosepink font-bold">
+            <span id="note-toggle-text" class="group-hover:text-rosepink transition-colors">Tap for Guidelines</span>
+            <svg id="note-chevron" class="w-4 h-4 transform transition-transform duration-300 text-rosepink" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+              <polyline points="6 9 12 15 18 9"></polyline>
+            </svg>
+          </div>
+        </div>
+        
+        <!-- Collapsible Content -->
+        <div id="bakers-note-content" class="max-h-0 overflow-hidden transition-all duration-300 ease-in-out">
+          <div class="pt-3 border-t border-lightpink/30 mt-3 text-[11px] text-goldbrown/90 leading-relaxed space-y-2">
+            <div class="flex items-start gap-2">
+              <span class="text-xs">📅</span>
+              <p><strong>Pre-order:</strong> Please book customized cake orders 24-48 hours in advance.</p>
+            </div>
+            <div class="flex items-start gap-2">
+              <span class="text-xs">📍</span>
+              <p><strong>Pickup Only:</strong> Orders must be self-picked up directly from the studio (No delivery).</p>
+            </div>
+            <div class="flex items-start gap-2">
+              <span class="text-xs">🧁</span>
+              <p><strong>100% Eggless:</strong> All cakes are baked fresh with premium vegetarian ingredients only.</p>
+            </div>
+          </div>
+        </div>
+      </div>
 
-    <!-- BOTTOM THANK YOU BADGE (Sits directly on page background) -->
-    <footer class="w-full mt-8 flex items-center justify-center relative z-10">
+      <!-- BOTTOM THANK YOU BADGE (Sits directly on page background) -->
+      <footer class="w-full mt-8 flex items-center justify-center relative z-10">
       <div class="inline-flex items-center justify-center space-x-1.5 bg-blush px-5 py-2 rounded-full border border-lightpink/40 shadow-[0_4px_15px_rgba(224,90,107,0.05)] hover:scale-105 transition-transform duration-300 select-none cursor-default mb-6">
         <span class="text-rosepink text-[9px] md:text-[10px] font-extrabold tracking-widest uppercase flex items-center gap-1.5">
           ♥ THANK YOU FOR SUPPORTING HOME BAKERY ♥
@@ -893,6 +990,44 @@ Is it available for order? Thank you! 💕`;
     function startSlideShow() {
       slideInterval = setInterval(nextSlide, 3500); // cycle slides every 3.5 seconds
     }
+
+    // Toggle collapsible guidelines card
+    function toggleBakersNote() {
+      const content = document.getElementById('bakers-note-content');
+      const toggleText = document.getElementById('note-toggle-text');
+      const chevron = document.getElementById('note-chevron');
+      
+      if (content.style.maxHeight && content.style.maxHeight !== '0px') {
+        content.style.maxHeight = '0px';
+        toggleText.innerText = 'Tap for Guidelines';
+        chevron.classList.remove('rotate-180');
+      } else {
+        content.style.maxHeight = content.scrollHeight + 'px';
+        toggleText.innerText = 'Close Details';
+        chevron.classList.add('rotate-180');
+      }
+    }
+    // Preloader hide logic
+    let preloaderHidden = false;
+    function hidePreloader() {
+      if (preloaderHidden) return;
+      preloaderHidden = true;
+      const preloader = document.getElementById('preloader');
+      if (preloader) {
+        preloader.classList.add('hide-active');
+        setTimeout(() => {
+          preloader.style.display = 'none';
+        }, 1000); // Wait for the 1s swipe-up transition to finish
+      }
+    }
+
+    // Hide preloader when all assets are loaded (with a minimum visual delay of 1.8 seconds)
+    window.addEventListener('load', () => {
+      setTimeout(hidePreloader, 1800);
+    });
+    
+    // Safety fallback: hide preloader after 4.5 seconds anyway
+    setTimeout(hidePreloader, 4500);
 
     // Initialize once page is loaded
     document.addEventListener('DOMContentLoaded', () => {
